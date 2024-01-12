@@ -52,41 +52,54 @@ export default {
 </script>
 
 <template>
-  <div>
-    <form @submit.prevent="handleSubmit">
-      <CustomInput id="email" v-model="form.email" type="email" label="Email:">
-        <template v-slot:error>
-          <div v-if="v$.email.$dirty">
-            <div class="error-message" v-if="!v$.email.required && v$.email.email">
-              Email jest wymagany
-            </div>
-            <div class="error-message" v-else-if="!v$.email.email">Podaj prawidłwy adres email</div>
+  <form @submit.prevent="handleSubmit" class="login-form">
+    <CustomInput
+      id="email"
+      v-model="form.email"
+      type="email"
+      label="Email:"
+      class="login-form__input"
+    >
+      <template v-slot:error>
+        <div v-if="v$.email.$dirty" class="login-form__error-container">
+          <div class="login-form__error-message" v-if="!v$.email.required && v$.email.email">
+            Email jest wymagany
           </div>
-        </template>
-      </CustomInput>
+          <div class="login-form__error-message" v-else-if="!v$.email.email">
+            Podaj prawidłwy adres email
+          </div>
+        </div>
+      </template>
+    </CustomInput>
 
-      <CustomInput id="password" v-model="form.password" type="password" label="Hasło:">
-        <template v-slot:error>
-          <div v-if="v$.password.$dirty">
-            <div
-              class="error-message"
-              v-if="!v$.password.required && v$.password.minLength.$invalid"
-            >
-              Hasło jest wymagane
-            </div>
-            <div class="error-message" v-if="v$.password.minLength.$invalid">
-              Hasło musi mieć co najmniej 6 znaków
-            </div>
+    <CustomInput
+      id="password"
+      v-model="form.password"
+      type="password"
+      label="Hasło:"
+      class="login-form__input"
+    >
+      <template v-slot:error>
+        <div v-if="v$.password.$dirty" class="login-form__error-container">
+          <div
+            class="login-form__error-message"
+            v-if="!v$.password.required && v$.password.minLength.$invalid"
+          >
+            Hasło jest wymagane
           </div>
-        </template>
-      </CustomInput>
-      <slot name="toggleForm"></slot>
-      <button type="submit">Zaloguj się</button>
-    </form>
-  </div>
+          <div class="login-form__error-message" v-if="v$.password.minLength.$invalid">
+            Hasło musi mieć co najmniej 6 znaków
+          </div>
+        </div>
+      </template>
+    </CustomInput>
+    <slot name="toggleForm" class="login-form__toggle"></slot>
+    <button type="submit" class="login-form__submit-button">Zaloguj się</button>
+  </form>
 </template>
+
 <style scoped>
-form {
+.login-form {
   min-width: 300px;
   max-width: 300px;
   margin: 0 auto;
@@ -96,19 +109,18 @@ form {
   background-color: #f9f9f9;
 }
 
-div {
+.login-form__input {
   margin-bottom: 10px;
-  color: black;
 }
 
-label {
+.login-form__input label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
 }
 
-input[type='email'],
-input[type='password'] {
+.login-form__input input[type='email'],
+.login-form__input input[type='password'] {
   width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
@@ -116,7 +128,7 @@ input[type='password'] {
   box-sizing: border-box;
 }
 
-button[type='submit'] {
+.login-form__submit-button {
   width: 100%;
   padding: 10px;
   border: none;
@@ -127,12 +139,15 @@ button[type='submit'] {
   cursor: pointer;
 }
 
-button[type='submit']:hover {
+.login-form__submit-button:hover {
   background-color: #3f51b5;
 }
 
-div.error-message {
+.login-form__error-container {
   color: red;
+}
+
+.login-form__error-message {
   font-size: 14px;
 }
 </style>

@@ -4,12 +4,10 @@ import RightDashboardComponentVue from '@/components/RightDashboardComponent.vue
 </script>
 
 <template>
-  <div class="dashboardDisplayContainer">
-    <LeftDashboardComponentVue /> <RightDashboardComponentVue />
-  </div>
+  <div class="dashboard"><LeftDashboardComponentVue /> <RightDashboardComponentVue /></div>
 </template>
 <style>
-.dashboardDisplayContainer {
+.dashboard {
   width: 100%;
   display: grid;
   grid-template-columns: minmax(500px, 0.6fr) minmax(300px, 0.4fr);

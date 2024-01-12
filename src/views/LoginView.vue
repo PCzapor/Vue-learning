@@ -10,12 +10,12 @@ const toggleForm = () => {
 </script>
 
 <template>
-  <div class="loginDisplayContainer">
+  <div class="login-container">
     <LoginForm v-if="showForm.show === 'login'"
       ><template v-slot:toggleForm>
         <div>
           Kliknij tu,
-          <button class="toggleButton" type="button" @click="toggleForm">
+          <button class="toggle-button" type="button" @click="toggleForm">
             aby się zarejestrować
           </button>
         </div>
@@ -25,18 +25,18 @@ const toggleForm = () => {
       ><template v-slot:toggleForm>
         <div>
           Kliknij tu,
-          <button class="toggleButton" type="button" @click="toggleForm">aby się zalogować</button>
+          <button class="toggle-button" type="button" @click="toggleForm">aby się zalogować</button>
         </div>
       </template></RegisterComponent
     >
   </div>
 </template>
 <style scoped>
-.loginDisplayContainer {
+.login-container {
   display: flex;
   align-self: center;
 }
-.toggleButton {
+.toggle-button {
   background: none;
   border: none;
   color: blue;

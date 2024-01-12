@@ -1,13 +1,13 @@
 <template>
-  <button type="button" class="btn btn-primary">
-    Notifications <span class="badge badge-light">4</span>
+  <button type="button" class="notification-button notification-button--primary">
+    Notifications <span class="notification-button__badge">4</span>
   </button>
 </template>
 
 <script setup lang="ts"></script>
 
 <style>
-.btn {
+.notification-button {
   display: inline-block;
   font-weight: 400;
   text-align: center;
@@ -26,12 +26,13 @@
     box-shadow 0.15s ease-in-out;
 }
 
-.btn-primary {
+.notification-button--primary {
   color: #fff;
   background-color: #007bff;
   border-color: #007bff;
 }
-.badge {
+
+.notification-button__badge {
   display: inline-block;
   padding: 0.25em 0.4em;
   font-size: 75%;
@@ -41,9 +42,6 @@
   white-space: nowrap;
   vertical-align: baseline;
   border-radius: 0.25rem;
-}
-
-.badge-light {
   color: #212529;
   background-color: #f8f9fa;
 }

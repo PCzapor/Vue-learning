@@ -1,3 +1,20 @@
+<template>
+  <div v-if="isLoading">Loading...</div>
+  <div v-if="!weatherStore.sevenDayForecastData.length">Please enter any city name...</div>
+  <div v-if="activeSevenDayData && adjustedTempData && !isLoading" class="weather-forecast">
+    <div v-for="(dayStats, idx) in weatherStats" :key="idx" class="weather-forecast__row">
+      <WeatherDay
+        :date="dayStats.date"
+        :temp="dayStats.avgTemp"
+        :temp_min="dayStats.lowestTemp"
+        :temp_max="dayStats.highestTemp"
+        :humidity="dayStats.avgHumidity"
+        :iconCode="dayStats.icon"
+      />
+    </div>
+  </div>
+</template>
+
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import WeatherDay from './WeatherDay.vue'
@@ -50,27 +67,13 @@ const weatherStats = computed(() => {
   return []
 })
 </script>
-<template>
-  <div v-if="isLoading">Loading...</div>
-  <div v-if="!weatherStore.sevenDayForecastData.length">Please enter any city name...</div>
-  <div v-if="activeSevenDayData && adjustedTempData && !isLoading" class="sevenDayDataContainer">
-    <div v-for="(dayStats, idx) in weatherStats" :key="idx" class="row">
-      <WeatherDay
-        :date="dayStats.date"
-        :temp="dayStats.avgTemp"
-        :temp_min="dayStats.lowestTemp"
-        :temp_max="dayStats.highestTemp"
-        :humidity="dayStats.avgHumidity"
-        :iconCode="dayStats.icon"
-      />
-    </div>
-  </div>
-</template>
+
 <style scoped>
-.sevenDayDataContainer {
+.weather-forecast {
   width: 100%;
 }
-.row {
+
+.weather-forecast__row {
   display: flex;
   width: 100%;
   gap: 10px;

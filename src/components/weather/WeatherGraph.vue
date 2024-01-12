@@ -1,27 +1,27 @@
 <template>
   <div class="progress">
     <div
-      class="progress-bar progress-bar-transparent"
+      class="progress__bar progress__bar--transparent"
       role="progressbar"
       :style="{ width: weekMinToDayMin + '%' }"
       :aria-valuemax="weekMinToDayMin"
     ></div>
     <div
-      class="progress-bar progress-bar-cold"
+      class="progress__bar progress__bar--cold"
       role="progressbar"
       :style="{ width: props.temp + '%' }"
       :aria-valuemin="weekMinToDayMin"
       :aria-valuemax="props.temp"
     ></div>
     <div
-      class="progress-bar progress-bar-hot"
+      class="progress__bar progress__bar--hot"
       role="progressbar"
       :style="{ width: centerToDayMax + '%' }"
       :aria-valuemin="props.temp"
       :aria-valuemax="maxTempDiff"
     ></div>
     <div
-      class="progress-bar progress-bar-transparent"
+      class="progress__bar progress__bar--transparent"
       role="progressbar"
       :style="{ width: maxTempDiff + '%' }"
       :aria-valuemin="centerToDayMax"
@@ -47,6 +47,7 @@ const averageTemp = computed(() => (props.temp_max + props.temp_min) / 2)
 const centerToDayMax = computed(() => conversion.value * (props.temp_max - averageTemp.value))
 const maxTempDiff = computed(() => conversion.value * (weekMax.value - props.temp_max))
 </script>
+
 <style>
 .progress {
   display: flex;
@@ -56,14 +57,11 @@ const maxTempDiff = computed(() => conversion.value * (weekMax.value - props.tem
   font-size: 0.75rem;
   background-color: #e9ecef;
   border-radius: 0.25rem;
-  /* style="height: 4px; min-width: 200px" */
 }
-.progress-bar {
-  display: -ms-flexbox;
+
+.progress__bar {
   display: flex;
-  -ms-flex-direction: column;
   flex-direction: column;
-  -ms-flex-pack: center;
   justify-content: center;
   overflow: hidden;
   color: #fff;
@@ -71,20 +69,18 @@ const maxTempDiff = computed(() => conversion.value * (weekMax.value - props.tem
   white-space: nowrap;
   background-color: #007bff;
   transition: width 0.6s ease;
+  height: 100%;
 }
 
-.progress-bar-transparent {
+.progress__bar--transparent {
   background-color: transparent;
-  height: 100%;
 }
 
-.progress-bar-cold {
+.progress__bar--cold {
   background-color: #17a2b8;
-  height: 100%;
 }
 
-.progress-bar-hot {
+.progress__bar--hot {
   background-color: #ffc107;
-  height: 100%;
 }
 </style>

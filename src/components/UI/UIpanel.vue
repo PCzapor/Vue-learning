@@ -1,19 +1,18 @@
 <template>
-  <div class="dropdown">
+  <div class="user-dropdown">
     <img
       src="/User_Icon.png"
       alt="User Avatar"
-      class="rounded-circle"
-      :style="{ width: '64px', height: '64px', cursor: 'pointer' }"
+      class="user-dropdown__avatar"
       id="user-avatar"
       @click="toggleDropdown"
     />
     <div
-      class="dropdown-menu dropdown-menu-right"
-      :class="{ dropdownShow: toggleDropdown }"
+      class="user-dropdown__menu"
+      :class="{ 'user-dropdown__menu--show': isDropdownOpen }"
       v-show="isDropdownOpen"
     >
-      <a @click="logout" class="dropdown-item" href="/"> Logout </a>
+      <a @click="logout" class="user-dropdown__item" href="/"> Logout </a>
     </div>
   </div>
 </template>
@@ -31,17 +30,23 @@ const logout = () => {}
 </script>
 
 <style>
-.dropdown {
+.user-dropdown {
   position: relative;
 }
 
-.dropdown-menu {
+.user-dropdown__avatar {
+  width: 64px;
+  height: 64px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.user-dropdown__menu {
   position: absolute;
   top: 100%;
-  left: 0;
+  right: 0;
   z-index: 1000;
   display: none;
-  float: left;
   min-width: 10rem;
   padding: 0.5rem 0;
   margin: 0.125rem 0 0;
@@ -52,15 +57,8 @@ const logout = () => {}
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 0.25rem;
 }
-.dropdownShow {
-  display: block;
-}
 
-.dropdown-menu-right {
-  right: 0;
-  left: auto;
-}
-.rounded-circle {
-  border-radius: 50%;
+.user-dropdown__menu--show {
+  display: block;
 }
 </style>

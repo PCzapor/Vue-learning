@@ -1,10 +1,16 @@
 <template>
-  <div class="wrapper">
-    <div class="navigationLeft" v-if="canNavigateLeft" @click="navigateLeft">&lt;</div>
+  <div class="weather-carousel">
+    <div
+      class="weather-carousel__navigation weather-carousel__navigation--left"
+      v-if="canNavigateLeft"
+      @click="navigateLeft"
+    >
+      &lt;
+    </div>
 
     <div
       v-for="city in displayedArray"
-      :class="city.active === 'active' ? 'card active' : 'card'"
+      :class="city.active === 'active' ? 'weather-card weather-card--active' : 'weather-card'"
       :key="city.city.name"
       @click="weatherStore.setActive(city)"
     >
@@ -19,10 +25,20 @@
         v-if="city.list[0].weather[0].icon"
         :src="`https://openweathermap.org/img/wn/${city.list[0].weather[0].icon}.png`"
         :alt="`${city.city.name} icon `"
+        class="weather-card__icon"
       />
-      <button class="removeButton" @click.stop="weatherStore.removeCityData(city)">X</button>
+      <button class="weather-card__remove-btn" @click.stop="weatherStore.removeCityData(city)">
+        X
+      </button>
     </div>
-    <div class="navigationRight" v-if="canNavigateRight" @click="navigateRight">&gt;</div>
+
+    <div
+      class="weather-carousel__navigation weather-carousel__navigation--right"
+      v-if="canNavigateRight"
+      @click="navigateRight"
+    >
+      &gt;
+    </div>
   </div>
 </template>
 
@@ -58,7 +74,7 @@ const displayedArray = computed(() => {
 </script>
 
 <style scoped>
-.wrapper {
+.weather-carousel {
   display: flex;
   height: 250px;
   width: 100%;
@@ -66,7 +82,8 @@ const displayedArray = computed(() => {
   align-items: center;
   margin-top: 1rem;
 }
-.card {
+
+.weather-card {
   position: relative;
   height: 250px;
   width: 140px;
@@ -78,32 +95,34 @@ const displayedArray = computed(() => {
   padding-top: 15%;
   cursor: pointer;
 }
-.active {
+
+.weather-card--active {
   background-color: rgb(123, 111, 232);
 }
-.navigationLeft {
+
+.weather-carousel__navigation {
   position: absolute;
   width: 25px;
   height: 25px;
   font-size: 2rem;
+  top: 40%;
+  color: red;
+}
+
+.weather-carousel__navigation--left {
   left: -4%;
-  top: 40%;
-  color: red;
 }
-.navigationRight {
-  position: absolute;
-  width: 25px;
-  height: 25px;
-  font-size: 2rem;
+
+.weather-carousel__navigation--right {
   right: -4%;
-  top: 40%;
-  color: red;
 }
-img {
+
+.weather-card__icon {
   height: 64px;
   width: 64px;
 }
-.removeButton {
+
+.weather-card__remove-btn {
   position: absolute;
   top: 2px;
   right: 2px;

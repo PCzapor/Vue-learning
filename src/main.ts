@@ -11,8 +11,8 @@ import axios from 'axios'
 
 const app = createApp(App).component('fa', FontAwesomeIcon)
 export const instnce = axios.create({
-  baseURL: 'https://api.openweathermap.org/data/2.5/',
-  timeout: 100000
+  baseURL: 'https://api.openweathermap.org/data/2.5/'
+  // timeout: 1000
 })
 library.add(faDroplet)
 app.use(createPinia())

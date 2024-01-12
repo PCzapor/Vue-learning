@@ -1,52 +1,77 @@
 <template>
-  <div>
-    <form @submit.prevent="handleSubmit">
-      <CustomInput name="name" id="name" v-model="form.name" label="Podaj imię" />
+  <form @submit.prevent="handleSubmit" class="register-form">
+    <CustomInput
+      name="name"
+      id="name"
+      v-model="form.name"
+      label="Podaj imię"
+      class="register-form__input"
+    />
 
-      <CustomInput name="email" id="email" v-model="form.email" label="Podaj email">
-        <template v-slot:error>
-          <div v-if="v$.email.$dirty">
-            <div class="error-message" v-if="!v$.email.required && v$.email.email">
-              Email jest wymagany
-            </div>
-            <div class="error-message" v-else-if="!v$.email.email">Podaj prawidłwy adres email</div>
+    <CustomInput
+      name="email"
+      id="email"
+      v-model="form.email"
+      label="Podaj email"
+      class="register-form__input"
+    >
+      <template v-slot:error>
+        <div v-if="v$.email.$dirty" class="register-form__error-container">
+          <div class="register-form__error-message" v-if="!v$.email.required && v$.email.email">
+            Email jest wymagany
           </div>
-        </template>
-      </CustomInput>
-      <CustomInput name="password" id="password" v-model="form.password" label="Podaj hasło">
-        <template v-slot:error>
-          <div v-if="v$.password.$dirty">
-            <div
-              class="error-message"
-              v-if="!v$.password.required && v$.password.minLength.$invalid"
-            >
-              Hasło jest wymagane
-            </div>
-            <div class="error-message" v-if="v$.password.minLength.$invalid">
-              Hasło musi mieć co najmniej 6 znaków
-            </div>
+          <div class="register-form__error-message" v-else-if="!v$.email.email">
+            Podaj prawidłwy adres email
           </div>
-        </template>
-      </CustomInput>
-      <CustomInput
-        name="confirmPassword"
-        id="confirmPassword"
-        v-model="form.confirmPassword"
-        label="Potwierdz hasło"
-      >
-        <template v-slot:error>
-          <div v-if="v$.password.$dirty">
-            <div class="error-message" v-if="!v$.confirmPassword.sameAsPassword.$valid">
-              {{ v$.confirmPassword.sameAsPassword.$message }}
-            </div>
+        </div>
+      </template>
+    </CustomInput>
+
+    <CustomInput
+      name="password"
+      id="password"
+      v-model="form.password"
+      label="Podaj hasło"
+      class="register-form__input"
+    >
+      <template v-slot:error>
+        <div v-if="v$.password.$dirty" class="register-form__error-container">
+          <div
+            class="register-form__error-message"
+            v-if="!v$.password.required && v$.password.minLength.$invalid"
+          >
+            Hasło jest wymagane
           </div>
-        </template>
-      </CustomInput>
-      <slot name="toggleForm"></slot>
-      <button type="submit">Zarejestruj się</button>
-    </form>
-  </div>
+          <div class="register-form__error-message" v-if="v$.password.minLength.$invalid">
+            Hasło musi mieć co najmniej 6 znaków
+          </div>
+        </div>
+      </template>
+    </CustomInput>
+
+    <CustomInput
+      name="confirmPassword"
+      id="confirmPassword"
+      v-model="form.confirmPassword"
+      label="Potwierdz hasło"
+      class="register-form__input"
+    >
+      <template v-slot:error>
+        <div v-if="v$.confirmPassword.$dirty" class="register-form__error-container">
+          <div
+            class="register-form__error-message"
+            v-if="!v$.confirmPassword.sameAsPassword.$valid"
+          >
+            {{ v$.confirmPassword.sameAsPassword.$message }}
+          </div>
+        </div>
+      </template>
+    </CustomInput>
+    <slot name="toggleForm" class="register-form__toggle"></slot>
+    <button type="submit" class="register-form__submit-button">Zarejestruj się</button>
+  </form>
 </template>
+
 <script lang="ts">
 import { reactive } from 'vue'
 import { required, email, minLength } from '@vuelidate/validators'
@@ -102,7 +127,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-form {
+.register-form {
   min-width: 300px;
   max-width: 300px;
   margin: 0 auto;
@@ -112,19 +137,18 @@ form {
   background-color: #f9f9f9;
 }
 
-div {
+.register-form__input {
   margin-bottom: 10px;
-  color: black;
 }
 
-label {
+.register-form__input label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
 }
 
-input[type='email'],
-input[type='password'] {
+.register-form__input input[type='email'],
+.register-form__input input[type='password'] {
   width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
@@ -132,7 +156,7 @@ input[type='password'] {
   box-sizing: border-box;
 }
 
-button[type='submit'] {
+.register-form__submit-button {
   width: 100%;
   padding: 10px;
   border: none;
@@ -143,12 +167,15 @@ button[type='submit'] {
   cursor: pointer;
 }
 
-button[type='submit']:hover {
+.register-form__submit-button:hover {
   background-color: #3f51b5;
 }
 
-div.error-message {
+.register-form__error-container {
   color: red;
+}
+
+.register-form__error-message {
   font-size: 14px;
 }
 </style>
