@@ -1,0 +1,19 @@
+@import './base.css';
+
+body {
+  display: flex;
+  place-items: center;
+}
+#app {
+  width: 80%;
+  min-width: 900px;
+  height: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-weight: normal;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(163, 161, 161);
+  display: flex;
+}
